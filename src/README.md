@@ -6,7 +6,7 @@ tags:
   - provider/github
 ---
 
-# Component: `argocd`
+# Component: `argocd-github-repo`
 
 This component is responsible for creating and managing an ArgoCD desired state repository.
 
