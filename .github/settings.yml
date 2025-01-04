@@ -5,5 +5,3 @@ repository:
   description: This component is responsible for creating and managing an ArgoCD desired state repository
   homepage: https://cloudposse.com/accelerate
   topics: terraform, terraform-component
-
-
