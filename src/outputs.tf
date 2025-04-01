@@ -20,7 +20,7 @@ output "repository_description" {
 
 output "repository_default_branch" {
   description = "Repository default branch"
-  value       = local.enabled? local.github_repository.default_branch : null
+  value       = local.enabled ? local.github_repository.default_branch : null
 }
 
 output "repository_url" {
