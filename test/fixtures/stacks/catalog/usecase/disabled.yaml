@@ -1,0 +1,23 @@
+components:
+  terraform:
+    argocd-github-repo/disabled:
+      metadata:
+        component: target
+      vars:
+        enabled: false
+        github_user: ci-acme
+        github_user_email: ci@acme.com
+        github_organization: cloudposse-tests
+        github_codeowner_teams:
+          - "@cloudposse-tests/admin"
+        permissions:
+          - team_slug: admins
+            permission: admin
+        name: argocd-deploy-non-prod
+        description: "ArgoCD desired state repository (Non-production) for ACME applications"
+        environments:
+          - tenant: mgmt
+            environment: uw2
+            stage: sandbox
+            auto-sync: false
+        gitignore_entries: []
