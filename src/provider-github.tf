@@ -1,9 +1,11 @@
 locals {
-  github_token = local.enabled ? coalesce(var.github_token_override, data.aws_ssm_parameter.github_api_key[0].value) : ""
+  github_token = local.enabled ? (
+    var.use_local_github_credentials ? null : coalesce(var.github_token_override, data.aws_ssm_parameter.github_api_key[0].value)
+  ) : ""
 }
 
 data "aws_ssm_parameter" "github_api_key" {
-  count           = local.enabled ? 1 : 0
+  count           = local.enabled && !var.use_local_github_credentials ? 1 : 0
   name            = var.ssm_github_api_key
   with_decryption = true
 }
