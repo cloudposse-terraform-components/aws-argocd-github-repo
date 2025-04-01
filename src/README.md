@@ -6,7 +6,7 @@ tags:
   - provider/github
 ---
 
-# Component: `argocd-repo`
+# Component: `argocd-github-repo`
 
 This component is responsible for creating and managing an ArgoCD desired state repository.
 
@@ -198,4 +198,4 @@ $ terraform import -var "import_profile_name=eg-mgmt-gbl-corp-admin" -var-file="
 - [cloudposse/terraform-aws-components](https://github.com/cloudposse/terraform-aws-components/tree/main/modules/argocd-repo) -
   Cloud Posse's upstream component
 
-[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/component)
+[<img src="https://cloudposse.com/logo-300x69.svg" height="32" align="right"/>](https://cpco.io/homepage?utm_source=github&utm_medium=readme&utm_campaign=cloudposse-terraform-components/aws-argocd-github-repo&utm_content=)
