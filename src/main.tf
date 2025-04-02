@@ -85,6 +85,7 @@ resource "github_branch_protection" "default" {
       dismiss_stale_reviews      = true
       restrict_dismissals        = true
       require_code_owner_reviews = true
+      pull_request_bypassers     = var.bypass_pull_request_actors
     }
   }
 

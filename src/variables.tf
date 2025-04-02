@@ -180,8 +180,8 @@ variable "github_notifications" {
   default = [
     "notifications.argoproj.io/subscribe.on-deploy-started.app-repo-github-commit-status: \"\"",
     "notifications.argoproj.io/subscribe.on-deploy-started.argocd-repo-github-commit-status: \"\"",
-    "notifications.argoproj.io/subscribe.on-deploy-succeded.app-repo-github-commit-status: \"\"",
-    "notifications.argoproj.io/subscribe.on-deploy-succeded.argocd-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeeded.app-repo-github-commit-status: \"\"",
+    "notifications.argoproj.io/subscribe.on-deploy-succeeded.argocd-repo-github-commit-status: \"\"",
     "notifications.argoproj.io/subscribe.on-deploy-failed.app-repo-github-commit-status: \"\"",
     "notifications.argoproj.io/subscribe.on-deploy-failed.argocd-repo-github-commit-status: \"\"",
   ]
@@ -195,5 +195,17 @@ variable "github_notifications" {
 variable "web_commit_signoff_required" {
   type        = bool
   description = "Require contributors to sign off on web-based commits"
+  default     = false
+}
+
+variable "bypass_pull_request_actors" {
+  type        = list(string)
+  description = "List of GitHub usernames and team slugs that can bypass pull request requirements"
+  default     = []
+}
+
+variable "use_local_github_credentials" {
+  type        = bool
+  description = "Use local GitHub credentials from environment variables instead of SSM"
   default     = false
 }
