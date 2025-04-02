@@ -14,9 +14,9 @@ locals {
 
   manifest_kubernetes_namespace = var.manifest_kubernetes_namespace
 
-  team_slugs = toset(compact([
+  team_slugs = local.enabled ? toset(compact([
     for permission in var.permissions : lookup(permission, "team_slug", null)
-  ]))
+  ])) : []
 
   team_ids = [
     for team in data.github_team.default : team.id
