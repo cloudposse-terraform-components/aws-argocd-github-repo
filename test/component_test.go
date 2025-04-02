@@ -28,6 +28,7 @@ func (s *ComponentSuite) TestBasic() {
 	randomID := strings.ToLower(random.UniqueId())
 
 	secretPath := fmt.Sprintf("/argocd/%s/github/api_key", randomID)
+	repoName := fmt.Sprintf("argocd-github-repo-%s", randomID)
 
 	defer func() {
 		awsTerratest.DeleteParameter(s.T(), awsRegion, secretPath)
@@ -36,6 +37,7 @@ func (s *ComponentSuite) TestBasic() {
 
 	inputs := map[string]interface{}{
 		"ssm_github_api_key": secretPath,
+		"name":                repoName,
 	}
 
 	defer s.DestroyAtmosComponent(s.T(), component, stack, &inputs)
