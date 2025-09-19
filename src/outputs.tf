@@ -1,6 +1,6 @@
 output "deploy_keys_ssm_paths" {
   description = "SSM Parameter Store paths for the repository's deploy keys"
-  value       = module.store_write.names
+  value       = local.deploy_keys_enabled ? module.store_write.names : []
 }
 
 output "deploy_keys_ssm_path_format" {
@@ -15,30 +15,30 @@ output "repository" {
 
 output "repository_description" {
   description = "Repository description"
-  value       = local.github_repository.description
+  value       = local.enabled ? local.github_repository.description : null
 }
 
 output "repository_default_branch" {
   description = "Repository default branch"
-  value       = local.github_repository.default_branch
+  value       = local.enabled ? local.github_repository.default_branch : null
 }
 
 output "repository_url" {
   description = "Repository URL"
-  value       = local.github_repository.html_url
+  value       = local.enabled ? local.github_repository.html_url : null
 }
 
 output "repository_git_clone_url" {
   description = "Repository git clone URL"
-  value       = local.github_repository.git_clone_url
+  value       = local.enabled ? local.github_repository.git_clone_url : null
 }
 
 output "repository_ssh_clone_url" {
   description = "Repository SSH clone URL"
-  value       = local.github_repository.ssh_clone_url
+  value       = local.enabled ? local.github_repository.ssh_clone_url : null
 }
 
 output "repository_http_clone_url" {
   description = "Repository HTTP clone URL"
-  value       = local.github_repository.http_clone_url
+  value       = local.enabled ? local.github_repository.http_clone_url : null
 }

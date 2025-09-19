@@ -2,8 +2,6 @@ locals {
   github_token = local.enabled ? (
     var.use_local_github_credentials ? null : coalesce(var.github_token_override, data.aws_ssm_parameter.github_api_key[0].value)
   ) : ""
-
-  deploy_key_environments = local.deploy_keys_enabled ? local.environments : {}
 }
 
 data "aws_ssm_parameter" "github_api_key" {
@@ -14,9 +12,9 @@ data "aws_ssm_parameter" "github_api_key" {
 
 module "store_write" {
   source  = "cloudposse/ssm-parameter-store/aws"
-  version = "0.11.0"
+  version = "0.13.0"
 
-  parameter_write = [for k, v in local.deploy_key_environments :
+  parameter_write = local.deploy_keys_enabled ? [for k, v in local.environments :
     {
       name        = format(var.ssm_github_deploy_key_format, k)
       value       = tls_private_key.default[k].private_key_pem
@@ -24,7 +22,7 @@ module "store_write" {
       overwrite   = true
       description = github_repository_deploy_key.default[k].title
     }
-  ]
+  ] : []
 
   context = module.this.context
 }
