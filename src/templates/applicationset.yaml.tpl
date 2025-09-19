@@ -37,7 +37,7 @@ metadata:
 spec:
   generators:
     - git:
-        repoURL: ${ssh_url}
+        repoURL: ${url}
         revision: HEAD
         files:
           - path: ${environment}/apps/*/*/config.yaml
@@ -63,7 +63,7 @@ spec:
     spec:
       project: ${name}
       source:
-        repoURL: ${ssh_url}
+        repoURL: ${url}
         targetRevision: HEAD
         path: '{{manifests}}'
       destination:

@@ -15,25 +15,30 @@ output "repository" {
 
 output "repository_description" {
   description = "Repository description"
-  value       = local.enabled ? local.github_repository.description : null
+  value       = local.github_repository.description
 }
 
 output "repository_default_branch" {
   description = "Repository default branch"
-  value       = local.enabled ? local.github_repository.default_branch : null
+  value       = local.github_repository.default_branch
 }
 
 output "repository_url" {
   description = "Repository URL"
-  value       = local.enabled ? local.github_repository.html_url : null
+  value       = local.github_repository.html_url
 }
 
 output "repository_git_clone_url" {
   description = "Repository git clone URL"
-  value       = local.enabled ? local.github_repository.git_clone_url : null
+  value       = local.github_repository.git_clone_url
 }
 
 output "repository_ssh_clone_url" {
   description = "Repository SSH clone URL"
-  value       = local.enabled ? local.github_repository.ssh_clone_url : null
+  value       = local.github_repository.ssh_clone_url
+}
+
+output "repository_http_clone_url" {
+  description = "Repository HTTP clone URL"
+  value       = local.github_repository.http_clone_url
 }
