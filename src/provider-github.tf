@@ -14,7 +14,7 @@ module "store_write" {
   source  = "cloudposse/ssm-parameter-store/aws"
   version = "0.13.0"
 
-  parameter_write = [for k, v in local.environments :
+  parameter_write = local.deploy_keys_enabled ? [for k, v in local.environments :
     {
       name        = format(var.ssm_github_deploy_key_format, k)
       value       = tls_private_key.default[k].private_key_pem
@@ -22,7 +22,7 @@ module "store_write" {
       overwrite   = true
       description = github_repository_deploy_key.default[k].title
     }
-  ]
+  ] : []
 
   context = module.this.context
 }
