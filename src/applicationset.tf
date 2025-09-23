@@ -15,7 +15,7 @@ resource "github_repository_file" "application_set" {
     ignore-differences          = each.value.ignore-differences
     name                        = module.this.namespace
     namespace                   = local.manifest_kubernetes_namespace
-    ssh_url                     = local.github_repository.ssh_clone_url
+    url                         = local.deploy_keys_enabled ? local.github_repository.ssh_clone_url : local.github_repository.http_clone_url
     notifications               = local.github_notifications
     slack_notifications_channel = var.slack_notifications_channel
   })

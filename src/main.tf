@@ -1,5 +1,6 @@
 locals {
-  enabled = module.this.enabled
+  enabled             = module.this.enabled
+  deploy_keys_enabled = local.enabled && var.deploy_keys_enabled
 
   environments = local.enabled ? {
     for env in var.environments :
@@ -118,14 +119,14 @@ resource "github_team_repository" "default" {
 }
 
 resource "tls_private_key" "default" {
-  for_each = local.environments
+  for_each = local.deploy_keys_enabled ? local.environments : {}
 
   algorithm = "RSA"
   rsa_bits  = "2048"
 }
 
 resource "github_repository_deploy_key" "default" {
-  for_each = local.environments
+  for_each = local.deploy_keys_enabled ? local.environments : {}
 
   title      = "Deploy key for ArgoCD environment: ${each.key} (${local.github_repository.default_branch} branch)"
   repository = local.github_repository.name

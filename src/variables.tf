@@ -209,3 +209,9 @@ variable "use_local_github_credentials" {
   description = "Use local GitHub credentials from environment variables instead of SSM"
   default     = false
 }
+
+variable "deploy_keys_enabled" {
+  type        = bool
+  description = "Enable GitHub deploy keys for the repository. These are used for Argo CD application syncing. Alternatively, you can use a GitHub App to access this desired state repository."
+  default     = true
+}
