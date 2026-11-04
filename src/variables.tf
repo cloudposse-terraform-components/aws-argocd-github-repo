@@ -215,3 +215,25 @@ variable "deploy_keys_enabled" {
   description = "Enable GitHub deploy keys for the repository. These are used for Argo CD application syncing. Alternatively, you can use a GitHub App to access this desired state repository."
   default     = true
 }
+
+variable "deploy_key_algorithm" {
+  type        = string
+  description = "Algorithm of the GitHub deploy keys: `RSA` or `ED25519`. Changing it does not replace existing keys; it applies to keys created afterwards. To rotate an existing key, run `terraform apply -replace` on its `tls_private_key`."
+  default     = "RSA"
+
+  validation {
+    condition     = contains(["RSA", "ED25519"], var.deploy_key_algorithm)
+    error_message = "deploy_key_algorithm must be RSA or ED25519."
+  }
+}
+
+variable "deploy_key_rsa_bits" {
+  type        = number
+  description = "Size in bits of RSA deploy keys. GitHub rejects new RSA SSH keys shorter than 3072 bits. Changing it does not replace existing keys; it applies to keys created afterwards."
+  default     = 4096
+
+  validation {
+    condition     = var.deploy_key_rsa_bits >= 3072
+    error_message = "deploy_key_rsa_bits must be at least 3072: GitHub rejects shorter RSA keys."
+  }
+}
