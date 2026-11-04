@@ -121,8 +121,14 @@ resource "github_team_repository" "default" {
 resource "tls_private_key" "default" {
   for_each = local.deploy_keys_enabled ? local.environments : {}
 
-  algorithm = "RSA"
-  rsa_bits  = "2048"
+  algorithm = var.deploy_key_algorithm
+  rsa_bits  = var.deploy_key_rsa_bits
+
+  lifecycle {
+    # Existing keys stay in place when these settings change; the new settings apply
+    # to keys created afterwards. Rotate a key with `terraform apply -replace`.
+    ignore_changes = [algorithm, rsa_bits]
+  }
 }
 
 resource "github_repository_deploy_key" "default" {
